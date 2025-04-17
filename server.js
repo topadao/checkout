@@ -8,7 +8,7 @@ app.use(express.static('public'));
 app.use(express.json());
 
 const RECEBEDOR_ID = 'gomes1551_5842553951';
-const TOKEN = '15833350cb95c397d6d0cf15057644abbb305b5546a7130005f8463caeaea3cf';
+const TOKEN = 'gomes1551_584255395115833350cb95c397d6d0cf15057644abbb305b5546a7130005f8463caeaea3cf';
 
 app.post('/gerar-pix', async (req, res) => {
   try {
