@@ -1,1 +1,35 @@
-
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cred Amigo</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    #qrcode { margin-top: 20px; }
+    #pixcode { margin-top: 20px; font-size: 14px; word-wrap: break-word; }
+  </style>
+</head>
+<body>
+  <h1>Pagamento Cred Amigo</h1>
+  <p>Valor: R$ 36,90</p>
+  <div id="qrcode">Carregando QR Code...</div>
+  <div id="pixcode"></div>
+  <script>
+    fetch('/gerar-pix', { method: 'POST' })
+      .then(res => res.json())
+      .then(data => {
+        if (data.imagemQrcode && data.qrcode) {
+          document.getElementById('qrcode').innerHTML = '<img src="' + data.imagemQrcode + '" alt="QR Code Pix">';
+          document.getElementById('pixcode').innerText = "Pix Copia e Cola:\n" + data.qrcode;
+        } else {
+          document.getElementById('qrcode').innerText = "Erro ao gerar QR Code.";
+        }
+        setTimeout(() => location.reload(), 900000); // 15 minutos
+      })
+      .catch(() => {
+        document.getElementById('qrcode').innerText = "Erro ao gerar QR Code.";
+      });
+  </script>
+</body>
+</html>
